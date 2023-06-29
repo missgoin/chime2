@@ -17,7 +17,7 @@ DEVICE=bengal
 #VERSION=
 
 # Kernel Defconfig
-DEFCONFIG=${DEVICE}-perf_defconfig
+DEFCONFIG=${DEVICE}_defconfig
 
 # Select LTO variant ( Full LTO by default )
 DISABLE_LTO=1
