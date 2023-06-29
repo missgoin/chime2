@@ -48,7 +48,7 @@ FINAL_ZIP_ALIAS=Karenulvay-${DATE}.zip
 ##----------------------------------------------------------##
 # Specify compiler.
 
-COMPILER=aosp
+COMPILER=lilium
 
 ##----------------------------------------------------------##
 # Specify Linker
@@ -231,14 +231,14 @@ START=$(date +"%s")
 	       CC=clang \
 	       CROSS_COMPILE=aarch64-linux-gnu- \
 	       CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-	       #LD=${LINKER} \
+	       LD=${LINKER} \
 	       #LLVM=1 \
 	       #LLVM_IAS=1 \
-	       #AR=llvm-ar \
-	       #NM=llvm-nm \
-	       #OBJCOPY=llvm-objcopy \
-	       #OBJDUMP=llvm-objdump \
-	       #STRIP=llvm-strip \
+	       AR=llvm-ar \
+	       NM=llvm-nm \
+	       OBJCOPY=llvm-objcopy \
+	       OBJDUMP=llvm-objdump \
+	       STRIP=llvm-strip \
 	       #READELF=llvm-readelf \
 	       #OBJSIZE=llvm-size \
 	       V=$VERBOSE 2>&1 | tee error.log
