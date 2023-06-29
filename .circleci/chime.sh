@@ -48,7 +48,7 @@ FINAL_ZIP_ALIAS=Karenulvay-${DATE}.zip
 ##----------------------------------------------------------##
 # Specify compiler.
 
-COMPILER=lilium
+COMPILER=aosp
 
 ##----------------------------------------------------------##
 # Specify Linker
@@ -122,7 +122,7 @@ function cloneTC() {
 	then
         mkdir aosp-clang
         cd aosp-clang || exit
-	wget -q https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master/clang-r450784b.tar.gz
+	wget -q https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master/clang-r487747c.tar.gz
         tar -xf clang*
         cd .. || exit
 	git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9.git --depth=1 gcc
@@ -146,9 +146,10 @@ function exports() {
                export KBUILD_COMPILER_STRING=$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
                export LD_LIBRARY_PATH="${KERNEL_DIR}/clang/lib:$LD_LIBRARY_PATH"
                
-        elif [ -d ${KERNEL_DIR}/gcc64 ];
-           then
-               export KBUILD_COMPILER_STRING=$("$KERNEL_DIR/gcc64"/bin/aarch64-elf-gcc --version | head -n 1)       
+#        elif [ -d ${KERNEL_DIR}/gcc64 ];
+#           then
+#               export KBUILD_COMPILER_STRING=$("$KERNEL_DIR/gcc64"/bin/aarch64-elf-gcc --version | head -n 1)       
+
         elif [ -d ${KERNEL_DIR}/cosmic ];
            then
                export KBUILD_COMPILER_STRING=$(${KERNEL_DIR}/cosmic/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
@@ -307,13 +308,12 @@ START=$(date +"%s")
 	       STRIP=llvm-strip \
 	       OBJSIZE=llvm-size \
 	       V=$VERBOSE 2>&1 | tee error.log
+	       
     elif [ -d ${KERNEL_DIR}/aosp-clang ];
        then
            make -kj$(nproc --all) O=out \
 	       ARCH=arm64 \
 	       CC=clang \
-           HOSTCC=clang \
-	       HOSTCXX=clang++ \
 	       CLANG_TRIPLE=aarch64-linux-gnu- \
 	       CROSS_COMPILE=aarch64-linux-android- \
 	       CROSS_COMPILE_ARM32=arm-linux-androideabi- \
