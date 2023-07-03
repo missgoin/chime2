@@ -26,7 +26,7 @@ export SUBARCH=arm64
 
 if ! [ -d "${TC_DIR}" ]; then
    echo "Clang not found! Cloning to ${TC_DIR}..."
-   if ! git clone --depth=1 https://gitlab.com/moehacker/clang-r487747.git ${TC_DIR}; then
+   if ! git clone --depth=1 https://github.com/ThankYouMario/proprietary_vendor_qcom_sdclang -b 14 ${TC_DIR}; then
    echo "Cloning failed! Aborting..."
    exit 1
    fi
