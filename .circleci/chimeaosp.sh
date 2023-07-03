@@ -48,6 +48,9 @@ if ! [ -d "${GCC_32_DIR}" ]; then
    fi
 fi
 
+export PATH="${TC_DIR}/compiler/bin:${GCC64_DIR}/bin:${GCC_DIR}/bin:/usr/bin:${PATH}"
+
+
 #if [[ $1 = "-r" || $1 = "--regen" ]]; then
 #make O=out ARCH=arm64 $DEFCONFIG savedefconfig
 #cp out/defconfig arch/arm64/configs/$DEFCONFIG
@@ -81,6 +84,7 @@ make O=out ARCH=arm64 $DEFCONFIG
 
 echo -e "\nStarting compilation...\n"
 make -j$(nproc --all) O=out ARCH=arm64 \
+    LD_LIBRARY_PATH="${TC_DIR}/lib:${LD_LIBRARY_PATH}" \
     CC=clang \
     LD=ld.lld \
     AR=llvm-ar \
